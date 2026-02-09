@@ -8,7 +8,9 @@ import Player from '../player/Player';
 import './home.css';
 import Sidebar from '../../components/sidebar/Sidebar';
 import Login from '../auth/Login';
+import { setClientToken } from '../../spotify';
 function Home() {
+
   const [token,setToken]=useState("");
   useEffect(()=>{
   const token=window.localStorage.getItem("token");
@@ -18,25 +20,28 @@ function Home() {
   const _token=hash.split("&")[0].split("=")[1];
   window.localStorage.setItem("token",_token);
   setToken(_token);
+  setClientToken(_token);
   }else{
     setToken(token);
+    setClientToken(token);
   }
   },[]);
-  return !token ?(
-    <Login/>
+  // return !token ?(
+    // <Login/>
 
-  ):(
+  //):(
+  return (
     <Router>
    <div className='main-body'> 
     
-         {/* <Sidebar/>
+          <Sidebar/>
         <Routes>
-            <Route path="/" element={<Library/>} />
+            <Route path="/library" element={<Library/>} />
             <Route path="/feed" element={<Feed/>} />
             <Route path="/trending" element={<Trending/>} />
             <Route path="/favorites" element={<Favorites/>} />
             <Route path="/player" element={<Player/>} />
-        </Routes>*/}
+        </Routes>
         </div>
     </Router>
          
